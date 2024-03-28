@@ -9,18 +9,19 @@
 
 
 #### Workspace setup ####
+library(arrow)
 library(tidyverse)
 library(rstanarm)
 
 #### Read data ####
-analysis_data <- read_csv("data/analysis_data/analysis_data.csv")
+analysis_data <- read_parquet("data/analysis_data/Auto_Theft_Ottawa_Data.csv")
 
 ### Model data ####
 first_model <-
   stan_glm(
-    formula = flying_time ~ length + width,
+    formula = flying_time ~ length + width, #sub with my own variables
     data = analysis_data,
-    family = gaussian(),
+    family = gaussian(),# spec for building a model
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_aux = exponential(rate = 1, autoscale = TRUE),
