@@ -2,9 +2,8 @@
 
 ## Overview
 
-This repository provides an analysis of auto theft trends in Ottawa, Ontario, Canada. 
+This repo provides an analysis of auto theft trends in Ottawa, Ontario, Canada. 
 
-To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
 
 
 ## File Structure
@@ -21,4 +20,4 @@ The repo is structured as:
 
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of the auto-complete tool, Codriver. The abstract and introduction were written with the help of ChatHorse and the entire chat history is available in inputs/llms/usage.txt.
+Aspects of the code were written with the help of Chat GPT 3.5 is available in other/llms/usage.txt.
