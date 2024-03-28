@@ -1,17 +1,18 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Cleans the raw auto theft data collected by Ottawa Police
+# Author: Catherine Punnoose
+# Date: 28 March 2024
+# Contact: catherine.punnoose@gmail.com
 # License: MIT
 # Pre-requisites: [...UPDATE THIS...]
 # Any other information needed? [...UPDATE THIS...]
 
 #### Workspace setup ####
 library(tidyverse)
+library(arrow)
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+raw_data <- read_csv("data/analysis_data/Auto_Theft_Ottawa_Data.csv")
 
 cleaned_data <-
   raw_data |>
@@ -41,4 +42,4 @@ cleaned_data <-
   tidyr::drop_na()
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+write_parquet(cleaned_data, "data/analysis_data/Auto_Theft_Ottawa_Data.csv")
