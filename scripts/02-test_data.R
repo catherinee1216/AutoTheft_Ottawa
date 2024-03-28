@@ -11,6 +11,7 @@
 #### Workspace setup ####
 library(arrow)
 library(tidyverse)
-# [...UPDATE THIS...]
+
+# use testthat package
 
 #### Test data ####

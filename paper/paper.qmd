@@ -1,10 +1,9 @@
 ---
-title: "My title"
+title: "Analysis of Auto Thefts in Ottawa, Canada"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Catherine Punnoose
+thanks: "Code and data are available at: https://github.com/catherinee1216/Auto_Theft_Crime_Analysis_Ottawa.git."
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
