@@ -18,7 +18,7 @@ The repo is structured as:
 
 ## Data Extraction 
 
-The dataset was collected by "https://data.ottawapolice.ca/datasets/e5453a203e2a4baeac32ac4e70ce852c_0/about". 
+The dataset was collected from "https://data.ottawapolice.ca/datasets/e5453a203e2a4baeac32ac4e70ce852c_0/about". 
 
 ## Statement on LLM usage
 
