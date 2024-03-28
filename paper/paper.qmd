@@ -3,7 +3,7 @@ title: "Analysis of Auto Thefts in Ottawa, Canada"
 subtitle: "My subtitle if needed"
 author: 
   - Catherine Punnoose
-thanks: "Code and data are available at: https://github.com/catherinee1216/Auto_Theft_Crime_Analysis_Ottawa.git."
+thanks: "Code and data are available at: https://github.com/catherinee1216/AutoTheft__Ottawa.git."
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
@@ -103,6 +103,15 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 
 
 # Results
+```{r}
+
+things i can add 
+# averages 
+# differences 
+# summary stats 
+# changes between point A and point A 
+
+```
 
 Our results are summarized in @tbl-modelresults.
 
