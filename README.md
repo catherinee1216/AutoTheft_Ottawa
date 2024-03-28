@@ -16,6 +16,9 @@ The repo is structured as:
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, download and clean data.
 
+## Data Extraction 
+
+The dataset was collected by "https://data.ottawapolice.ca/datasets/e5453a203e2a4baeac32ac4e70ce852c_0/about". 
 
 ## Statement on LLM usage
 
