@@ -1,26 +1,25 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves the data 
+# Author: Catherine Punnoose
+# Date: 03 April 2024
+# Contact: catherine.punnoose@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: Auto_Theft_ottawa_Data.csv 
 
 
 #### Workspace setup ####
-library(opendatatoronto)
 library(tidyverse)
-# [...UPDATE THIS...]
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
 
+# code from CHAT GPT
+# Set the file path to your CSV file
 
+# Read the CSV file
+auto_theft_data <- read.csv("data/analysis_data/Auto_Theft_Ottawa_Data.csv")
 
 #### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+# saving original dataset in raw_data
+write.csv(auto_theft_data, "data/raw_data/Auto_Theft_Ottawa_Data.csv") 
 
          

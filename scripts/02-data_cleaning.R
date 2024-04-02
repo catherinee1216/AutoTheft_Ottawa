@@ -8,38 +8,24 @@
 # Any other information needed? [...UPDATE THIS...]
 
 #### Workspace setup ####
+library(dplyr)
+library(tidyr)
+library(janitor)
 library(tidyverse)
 library(arrow)
 
 #### Clean data ####
-raw_data <- read_csv("data/analysis_data/Auto_Theft_Ottawa_Data.csv")
+raw_data <- read.csv("data/raw_data/Auto_Theft_Ottawa_Data.csv")
 
 cleaned_data <-
   raw_data |>
   janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
-  mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+  select(vehicle_make, vehicle_model, vehicle_year, vehicle_colour, 
+         vehicle_value, occurred_date, reported_date, weekday, 
+         recovered, year) |>
+  mutate(theft_year = year) # changing year to theft_year for clarity
+
 
 #### Save data ####
-write_parquet(cleaned_data, "data/analysis_data/Auto_Theft_Ottawa_Data.csv")
+write.csv(cleaned_data, "data/analysis_data/analysis_data.csv")
+

@@ -18,9 +18,20 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
+library(janitor)
+library(kableExtra)
 ```
 
+```{r}
+
+auto_Data <- read.csv(here::here("data/analysis_data/analysis_data.csv"))
+
+auto_Data |>
+  kable()
+
+
+
+```
 
 # Introduction
 
