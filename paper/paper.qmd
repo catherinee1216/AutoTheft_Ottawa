@@ -5,7 +5,7 @@ author:
 thanks: "Code and data are available at: https://github.com/catherinee1216/AutoTheft_Ottawa.git."
 date: today
 date-format: long
-abstract: "The surge in auto theft rates across Canada has prompted heightened vigilance among car owners regarding their vehicle's security. This paper delves into a thorough examination of auto theft occurrences within Canada's capital, Ottawa. Focusing on the years 2018-2022, the paper provides a deep dive into the types of vehicles brands, model, and color targeted and offers insights into the neighborhoods within Ottawa exhibiting elevated rates of auto theft. Additionally, the study assesses factors such as the recovery rate of stolen cars, and provides solutions to improve vehicle security by understanding auto theft dynamics in the region."
+abstract: "The surge in auto theft rates across Canada has prompted car owners to become more vigilant regarding their vehicle's security. This paper gives a thorough examination of auto theft occurrences within Canada's capital, Ottawa. Focusing on the years 2018-2022, the paper provides a deep dive into the types of vehicles brands, model, and color targeted and offers insights into the neighborhoods within Ottawa exhibiting elevated rates of auto theft. Additionally, the study assesses factors such as the recovery rate of stolen cars, and provides solutions to improve vehicle security by understanding auto theft dynamics in the region."
 format: pdf
 number-sections: true
 bibliography: references.bib
