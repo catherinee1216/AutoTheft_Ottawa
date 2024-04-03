@@ -27,5 +27,5 @@ cleaned_data <-
 
 
 #### Save data ####
-write.csv(cleaned_data, "data/analysis_data/analysis_data.csv")
+write_parquet(cleaned_data, "data/analysis_data/analysis_data.parquet")
 
