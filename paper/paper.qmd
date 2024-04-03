@@ -1,12 +1,11 @@
 ---
-title: "Analysis of Auto Thefts in Ottawa, Canada"
-subtitle: "My subtitle if needed"
+title: "Wheels of Misfortune: Exploring Auto Theft Trends in Ottawa"
 author: 
   - Catherine Punnoose
-thanks: "Code and data are available at: https://github.com/catherinee1216/AutoTheft__Ottawa.git."
+thanks: "Code and data are available at: https://github.com/catherinee1216/AutoTheft_Ottawa.git."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "The surge in auto theft rates across Canada has prompted heightened vigilance among car owners regarding their vehicle's security. This paper delves into a thorough examination of auto theft occurrences within Canada's capital, Ottawa. Focusing on the years 2018-2022, the paper provides a deep dive into the types of vehicles brands, model, and color targeted and offers insights into the neighborhoods within Ottawa exhibiting elevated rates of auto theft. Additionally, the study assesses factors such as the recovery rate of stolen cars, and provides solutions to improve vehicle security by understanding auto theft dynamics in the region."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -20,69 +19,28 @@ bibliography: references.bib
 library(tidyverse)
 library(janitor)
 library(kableExtra)
+library(maps)
 ```
 
-```{r}
-
-auto_Data <- read.csv(here::here("data/analysis_data/analysis_data.csv"))
-
-auto_Data |>
-  kable()
-
-
-
-```
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+In recent years, there is a significant increase of auto theft rates across various cities in Canada. The country’s capital, Ottawa has reported 221 stolen vehicles cases since January 1, 2024 [@citeCTV]. This escalating trend in auto theft poses a considerable risk to public safety. Although Ottawa police have made efforts to mitigate such reports as well as educate the public, the number of reported cases continues to rise steadily, specifically from the years 2018-2023. However, questions regarding potential patterns in the types of cars targeted and the proportion of vehicles successfully recovered following theft have increased.
 
-The remainder of this paper is structured as follows. @sec-data....
+This paper aims to identify the gravity of auto theft as a pressing concern, particularly in Canada, in the @Introduction. Subsequently, the @Data section focuses on the methodology for data collection and data cleaning. The @Results section delves into a comprehensive analysis of auto theft patterns in Ottawa from the years 2018-2022. Finally, in the @Discussion section, the paper explores potential drivers behind the escalation in auto theft rates, strategies for enhancing vehicle security, and prospective trends in auto theft.
 
 
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
-
 ```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
+#| include: false
 #| warning: false
 #| message: false
 
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
+auto_Data <- read.csv(here::here("data/analysis_data/analysis_data.csv"))
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
 ```
-
-Talk way more about it. 
-
-
 
 # Model
 
@@ -114,54 +72,20 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 
 
 # Results
-```{r}
-
-things i can add 
-# averages 
-# differences 
-# summary stats 
-# changes between point A and point A 
-
-```
-
-Our results are summarized in @tbl-modelresults.
 
 ```{r}
+#| label: fig-bills
+#| fig-cap: Bills of penguins
 #| echo: false
-#| eval: true
-#| warning: false
-#| message: false
 
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
+auto_Data |>
+  ggplot(aes(x = theft_year)) +
+  geom_histogram(stat = "count")
 ```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-
-
-
 
 # Discussion
 
 ## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
 
 ## Second discussion point
 
@@ -169,7 +93,6 @@ If my paper were 10 pages, then should be be at least 2.5 pages. The discussion 
 
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
 
 \newpage
 
@@ -181,55 +104,6 @@ Weaknesses and next steps should also be included.
 # Additional data details
 
 # Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
-
 
 
 \newpage
