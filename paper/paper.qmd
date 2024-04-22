@@ -46,71 +46,237 @@ The data was cleaned by using the open source statistical programming language R
 # Results
 
 ```{r}
-#| label: theft-year
+#| label: averageTheftYear
 #| fig-cap: "Average Auto Theft Crime Reported in ottawa from 2018-2023"
 #| echo: false
 #| warning: false
 #| message: false
 
 auto_Data |>
-  ggplot(aes(x = theft_year)) +
+  ggplot(aes(x = theft_year)) + 
+  labs(x = "Year", y = "Count") + theme_minimal() +
   geom_histogram(stat = "count")
+
 ```
 ```{r}
-#| label: theft-brand
+#| label: theft-brands
 #| fig-cap: "Number of Cars Stolen by Car Brand in 2018"
+#| fig-subcap: ["Illnesses","Visits to the doctor"]
+#| layout-ncol: 3
 #| echo: false
 #| warning: false
 #| message: false
 
+# Filter for Number of Cars Stolen by Brand in 2018 
 brand_theft_2018 <- auto_Data |>
   filter(theft_year == "2018") 
 
-brand_theft_2018 |>
-  ggplot(aes(x = vehicle_make, fill = vehicle_make)) +
-  geom_histogram(stat = "count")
+# filter for Top 10 Brands 
+brand_theft_2018_table <- brand_theft_2018 |>
+                          count(vehicle_make)
+
+brands2018_top10 <- brand_theft_2018_table |>
+  filter(n > 26, n != 95) |> 
+  mutate(vehicle_make = recode(vehicle_make,
+                             "CHEV" = "Chevrolet",
+                             "DODG" = "Dodge",
+                             "FORD" = "Ford",
+                             "GMC" = "GMC",
+                             "HOND" = "Honda",
+                             "HYUN" = "Hyundai",
+                             "LEXS" = "Lexus",
+                             "MAZD" = "Mazda",
+                             "NISS" = "Nissan",
+                             "TOYT" = "Toyota"
+                             ))
+brands2018_top10 |>
+  ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2018") 
+
+
+# Filter for Number of Cars Stolen by Brand in 2019 
+brand_theft_2019 <- auto_Data |>
+  filter(theft_year == "2019") 
+
+# filter for Top 10 Brands 
+brandtheft2019_top10 <- brand_theft_2019 |>
+                          count(vehicle_make) |>
+                          filter(n > 25, n != 118) |> 
+                          mutate(vehicle_make = recode(vehicle_make,
+                                                        "CHEV" = "Chevrolet",
+                                                        "DODG" = "Dodge",
+                                                        "FORD" = "Ford",
+                                                        "GMC" = "GMC",
+                                                        "HOND" = "Honda",
+                                                        "HYUN" = "Hyundai",
+                                                        "LEXS" = "Lexus",
+                                                        "MAZD" = "Mazda",
+                                                        "NISS" = "Nissan",
+                                                        "TOYT" = "Toyota"
+                                                     ))
+brandtheft2019_top10 |>
+  ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2019") 
+
+
+
+# Filter for Number of Cars Stolen by Brand in 2020
+brand_theft_2020 <- auto_Data |>
+  filter(theft_year == "2020") 
+
+# filter for Top 10 Brands 
+brandtheft2020_top10 <- brand_theft_2020 |>
+                          count(vehicle_make) |>
+                          filter(n > 21, n != 95) |> 
+                          mutate(vehicle_make = recode(vehicle_make,
+                                                        "CHEV" = "Chevrolet",
+                                                        "DODG" = "Dodge",
+                                                        "FORD" = "Ford",
+                                                        "GMC" = "GMC",
+                                                        "HOND" = "Honda",
+                                                        "HYUN" = "Hyundai",
+                                                        "LEXS" = "Lexus",
+                                                        "MERZ" = "Mercedes-Benz ",
+                                                        "MAZD" = "Mazda",
+                                                        "NISS" = "Nissan",
+                                                        "TOYT" = "Toyota"
+                                                     ))
+brandtheft2020_top10 |>
+  ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2020") 
+
+
+
+# Filter for Number of Cars Stolen by Brand in 2021 
+brand_theft_2021 <- auto_Data |>
+  filter(theft_year == "2021") 
+
+# filter for Top 10 Brands 
+brandtheft2021_top10 <- brand_theft_2021 |>
+                          count(vehicle_make) |>
+                          filter(n > 21, n != 115) |> 
+                          mutate(vehicle_make = recode(vehicle_make,
+                                                        "CHEV" = "Chevrolet",
+                                                        "DODG" = "Dodge",
+                                                        "FORD" = "Ford",
+                                                        "GMC" = "GMC",
+                                                        "HOND" = "Honda",
+                                                        "HYUN" = "Hyundai",
+                                                        "LEXS" = "Lexus",
+                                                        "MERZ" = "Mercedes-Benz ",
+                                                        "MAZD" = "Mazda",
+                                                        "NISS" = "Nissan",
+                                                        "TOYT" = "Toyota"
+                                                     ))
+brandtheft2021_top10 |>
+  ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2021") 
+
+
+# Filter for Number of Cars Stolen by Brand in 2022
+brand_theft_2022 <- auto_Data |>
+  filter(theft_year == "2022") 
+
+# filter for Top 10 Brands 
+brandtheft2022_top10 <- brand_theft_2022 |>
+                          count(vehicle_make) |>
+                          filter(n > 34, n != 124) |> 
+                          mutate(vehicle_make = recode(vehicle_make,
+                                                        "CHEV" = "Chevrolet",
+                                                        "DODG" = "Dodge",
+                                                        "FORD" = "Ford",
+                                                        "GMC" = "GMC",
+                                                        "HOND" = "Honda",
+                                                        "HYUN" = "Hyundai",
+                                                        "LEXS" = "Lexus",
+                                                        "MERZ" = "Mercedes-Benz ",
+                                                        "MAZD" = "Mazda",
+                                                        "NISS" = "Nissan",
+                                                        "TOYT" = "Toyota"
+                                                     ))
+brandtheft2022_top10 |>
+  ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022") 
+
+# Filter for Number of Cars Stolen by Brand in 2023 
+brand_theft_2023 <- auto_Data |>
+  filter(theft_year == "2023") 
+
+# filter for Top 10 Brands 
+brandtheft2023_top10 <- brand_theft_2023 |>
+                          count(vehicle_make) |>
+                          filter(n > 16, n != 36) |> 
+                          mutate(vehicle_make = recode(vehicle_make,
+                                                       "ACUR" = "Acura",
+                                                        "CHEV" = "Chevrolet",
+                                                        "DODG" = "Dodge",
+                                                        "FORD" = "Ford",
+                                                        "GMC" = "GMC",
+                                                        "HOND" = "Honda",
+                                                        "HYUN" = "Hyundai",
+                                                        "LEXS" = "Lexus",
+                                                        "MERZ" = "Mercedes-Benz ",
+                                                        "MAZD" = "Mazda",
+                                                        "NISS" = "Nissan",
+                                                        "TOYT" = "Toyota"
+                                                     ))
+brandtheft2023_top10 |>
+  ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2023") 
+
+
 
 ```
 
 ```{r}
+#| label: theft-recovery
+#| fig-cap: "Recovery Rates from 2018 - 2023"
 #| echo: false
 #| warning: false
 #| message: false
 
-# creating map from section 5.4.1 in the textbook 
+theft_recovery <- auto_Data |>
+  select(theft_year, recovered)
 
-# Define the bounding box for Ottawa
-bbox <- c(left = -75.9, bottom = 45.3, right = -75.5, top = 45.5)
 
-# Get the map of Ottawa using get_stadiamap function
-ottawa_stadia_map <- get_stadiamap(bbox, zoom = 11, maptype = "stamen_toner_lite")
-
-# Plot the map using ggmap
-ggmap(ottawa_stadia_map) # map prints 
-
-# ---- not working -----------
-#filtering dataset to get auto theft reports per neighborhood in 2018
-
-#neighborhood_theft_2018 <- auto_Data |>
-#  filter(theft_year == "2018") |>
-#  select(neighbourhood, x, y)
-
-#print(neighborhood_theft_2018)
-
-# map does not print with elements plotted 
-
-#ggmap(ottawa_stadia_map, extent = "normal", maprange = FALSE) +
-#  geom_point(data = neighborhood_theft_2018,
-#             aes(x = 45.3, y = 45.5, colour = neighbourhood),
-#             alpha = 0.7) +
-#  scale_color_brewer(name = "2019 Division", palette = "Set1") +
-#  labs(x = "Longitude",
-#       y = "Latitude") +
-#  theme_minimal() +
-#  theme(panel.grid.major = element_blank(),
-#        panel.grid.minor = element_blank())
-
+theft_recovery |>
+  ggplot(mapping = aes(x = theft_year, fill = recovered)) +
+  geom_bar(position = "dodge2") +
+  labs(x = "Age group", y = "Number of observations", fill = "Vote") +
+  theme(legend.position = "bottom")
 ```
+```{r}
+#| label: theft-neighborhoods
+#| fig-cap: "Recovery Rates from 2018 - 2023"
+#| echo: false
+#| warning: false
+#| message: false
+
+theft_recovery <- auto_Data |>
+  select(neighbourhood) |> 
+  count(neighbourhood) |> 
+  filter(n > 180)
+
+
+theft_recovery |>
+  ggplot(aes(x = neighbourhood, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022") 
+```
+
 
 
 # Discussion
@@ -133,7 +299,6 @@ ggmap(ottawa_stadia_map) # map prints
 
 # Additional data details
 
-# Model details {#sec-model-details}
 
 
 \newpage

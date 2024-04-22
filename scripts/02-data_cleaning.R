@@ -22,7 +22,7 @@ cleaned_data <-
   janitor::clean_names() |>
   select(vehicle_make, vehicle_model, vehicle_year, vehicle_colour, 
          vehicle_value, occurred_date, reported_date, weekday, 
-         recovered, year, neighbourhood, x, y) |>
+         recovered, year, neighbourhood) |>
   mutate(theft_year = year) # changing year to theft_year for clarity
 
 
