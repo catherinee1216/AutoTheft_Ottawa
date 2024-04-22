@@ -57,6 +57,8 @@ auto_Data |>
   labs(x = "Year", y = "Count") + theme_minimal() +
   geom_histogram(stat = "count")
 
+
+
 ```
 ```{r}
 #| label: theft-brands
@@ -247,6 +249,12 @@ brandtheft2023_top10 |>
 #| warning: false
 #| message: false
 
+auto_Data |>
+  ggplot(aes(x = theft_year)) + 
+  labs(x = "Year", y = "Count") + theme_minimal() +
+  geom_histogram(stat = "count")
+
+
 theft_recovery <- auto_Data |>
   select(theft_year, recovered)
 
@@ -256,6 +264,16 @@ theft_recovery |>
   geom_bar(position = "dodge2") +
   labs(x = "Age group", y = "Number of observations", fill = "Vote") +
   theme(legend.position = "bottom")
+
+# Merging 'theft_recovery' dataframe with 'auto_Data'
+merged_data <- merge(auto_Data, theft_recovery, by = "theft_year", all.x = TRUE)
+
+# Plotting the merged data as a line graph
+ggplot(merged_data, aes(x = theft_year, y = recovered)) +
+  geom_line() + 
+  geom_point() +
+  labs(x = "Year", y = "Count") +
+  theme_minimal()
 ```
 ```{r}
 #| label: theft-neighborhoods
@@ -269,12 +287,60 @@ theft_recovery <- auto_Data |>
   count(neighbourhood) |> 
   filter(n > 180)
 
+years_vehicle <- auto_Data |>
+  select(vehicle_year) |> 
+  count(vehicle_year) 
+
+
 
 theft_recovery |>
   ggplot(aes(x = neighbourhood, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022")
+
+library(ggplot2)
+
+# Assuming 'years_vehicle' is your data frame
+
+years_vehicle <- years_vehicle |>
+  mutate(vehicle_year = as.numeric(vehicle_year))  # Convert to numeric if 'vehicle_year' is factor
+
+# Create a scatter plot
+ggplot(years_vehicle, aes(x = vehicle_year, y = n, fill = n)) +
+  geom_point() +  # Use geom_point() for scatter plot
+  scale_x_continuous(limits = c(1930, 2024)) +  # Adjust the x-axis limits here
+  theme_minimal() + 
+  theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022")
+
+```
+
+```{r}
+#| label: theft-neighborhoods
+#| fig-cap: "Recovery Rates from 2018 - 2023"
+#| echo: false
+#| warning: false
+#| message: false
+
+theft_recovery <- auto_Data |>
+  select(neighbourhood) |> 
+  count(neighbourhood) 
+
+library(ggplot2)
+
+# Assuming 'years_vehicle' is your data frame
+
+years_vehicle <- theft_recovery |>
+  mutate(vehicle_year = as.numeric(neighbourhood))  # Convert to numeric if 'vehicle_year' is factor
+
+# Create a scatter plot
+ggplot(years_vehicle, aes(x = neighbourhood, y = n, fill = neighbourhood)) +
+  geom_point() +  
+  theme_minimal() + 
+  theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022")
+
 ```
 
 
