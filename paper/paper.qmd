@@ -47,7 +47,7 @@ The data was cleaned by using the open source statistical programming language R
 
 ```{r}
 #| label: averageTheftYear
-#| fig-cap: "Average Auto Theft Crime Reported in ottawa from 2018-2023"
+#| fig-cap: "Average Auto Theft Crimes Reported in ottawa from 2018-2023"
 #| echo: false
 #| warning: false
 #| message: false
@@ -57,14 +57,12 @@ auto_Data |>
   labs(x = "Year", y = "Count") + theme_minimal() +
   geom_histogram(stat = "count")
 
-
-
 ```
 ```{r}
-#| label: theft-brands
-#| fig-cap: "Number of Cars Stolen by Car Brand in 2018"
-#| fig-subcap: ["Illnesses","Visits to the doctor"]
-#| layout-ncol: 3
+#| label: theftBrands
+#| fig-cap: "Top 10 Car Brands Stolen from 2018-2023"
+#| fig-subcap: ["Top 10 Brands Affected in 2018", "Top 10 Brands Affected in 2019", "Top 10 Brands Affected in 2020", "Top 10 Brands Affected in 2021", "Top 10 Brands Affected in 2022", "Top 10 Brands Affected in 2023"]
+#| layout-ncol: 2
 #| echo: false
 #| warning: false
 #| message: false
@@ -95,7 +93,7 @@ brands2018_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2018") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 # Filter for Number of Cars Stolen by Brand in 2019 
@@ -122,7 +120,7 @@ brandtheft2019_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2019") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 
@@ -142,7 +140,7 @@ brandtheft2020_top10 <- brand_theft_2020 |>
                                                         "HOND" = "Honda",
                                                         "HYUN" = "Hyundai",
                                                         "LEXS" = "Lexus",
-                                                        "MERZ" = "Mercedes-Benz ",
+                                                        "MERZ" = "Mercedes",
                                                         "MAZD" = "Mazda",
                                                         "NISS" = "Nissan",
                                                         "TOYT" = "Toyota"
@@ -151,7 +149,7 @@ brandtheft2020_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2020") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 
@@ -180,7 +178,7 @@ brandtheft2021_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2021") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 # Filter for Number of Cars Stolen by Brand in 2022
@@ -208,7 +206,7 @@ brandtheft2022_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 # Filter for Number of Cars Stolen by Brand in 2023 
 brand_theft_2023 <- auto_Data |>
@@ -236,40 +234,27 @@ brandtheft2023_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2023") 
-
-
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 ```
 
 ```{r}
 #| label: theft-recovery
-#| fig-cap: "Recovery Rates from 2018 - 2023"
+#| fig-cap: "Recovery Rates from 2018-2023"
 #| echo: false
 #| warning: false
 #| message: false
 
-library(ggplot2)
-
+# Filter for Count of Cars Recovered from 2018-2023
 theft_recovery <- auto_Data |>
   select(theft_year, recovered) 
 
-theft_count <- auto_Data |>
-  select(theft_year) 
-
-theft_count |>
-  ggplot(mapping = aes(x = theft_year)) +
-  geom_bar() +
-  labs(x = "Age group", y = "Number of observations") +
-  theme(legend.position = "bottom")
-
-
+# Create a Stacked Bar Graph of the Data
 theft_recovery |>
   ggplot(mapping = aes(x = theft_year, fill = recovered)) +
   geom_bar(position = "dodge2") +
   labs(x = "Age group", y = "Number of observations", fill = "Vote") +
   theme(legend.position = "bottom")
-
 
 ```
 
@@ -278,31 +263,40 @@ theft_recovery |>
 
 ```{r}
 #| label: theft-neighborhoods
-#| fig-cap: "Recovery Rates from 2018 - 2023"
+#| fig-cap: "Top 5 Neighborhoods with Most Auto Thefts from 2018-2023"
 #| echo: false
 #| warning: false
 #| message: false
 
+# Filter for top 10 neighborhoods with the highest auto theft rates from 2018-2023
 theft_recovery <- auto_Data |>
   select(neighbourhood) |> 
   count(neighbourhood) |> 
   filter(n > 180)
 
+theft_recovery |>
+  ggplot(aes(x = neighbourhood, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count")
+
+
+```
+
+```{r}
+#| label: vehicleYearStolen
+#| fig-cap: "Vehicle Years Stolen from 2018-2023"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Count for vehicle year 
 years_vehicle <- auto_Data |>
   select(vehicle_year) |> 
   count(vehicle_year) 
 
 
-
-theft_recovery |>
-  ggplot(aes(x = neighbourhood, y = n, fill = n)) +  # Use n as the fill aesthetic
-  geom_bar(stat = "identity") +
-  theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022")
-
-library(ggplot2)
-
-# Assuming 'years_vehicle' is your data frame
+# Code from Chat GPT (see LLM)
 
 years_vehicle <- years_vehicle |>
   mutate(vehicle_year = as.numeric(vehicle_year))  # Convert to numeric if 'vehicle_year' is factor
@@ -313,9 +307,10 @@ ggplot(years_vehicle, aes(x = vehicle_year, y = n, fill = n)) +
   scale_x_continuous(limits = c(1930, 2024)) +  # Adjust the x-axis limits here
   theme_minimal() + 
   theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022")
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count")
 
 ```
+
 
 
 
