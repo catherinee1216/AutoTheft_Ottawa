@@ -1,11 +1,12 @@
 ---
 title: "Wheels of Misfortune: Exploring Auto Theft Trends in Ottawa"
+sub-title: "An Analysis on top car brands stolen, recovery rate, and top neighborhoods with high theft rates"
 author: 
   - Catherine Punnoose
 thanks: "Code and data are available at: https://github.com/catherinee1216/AutoTheft_Ottawa.git."
 date: today
 date-format: long
-abstract: "The surge in auto theft rates across Canada has prompted car owners to become more vigilant regarding their vehicle's security. This paper gives a thorough examination of auto theft occurrences within Canada's capital, Ottawa. Focusing on the years 2018-2022, the paper provides a deep dive into the types of vehicles brands, model, and color targeted and offers insights into the neighborhoods within Ottawa exhibiting elevated rates of auto theft. Additionally, the study assesses factors such as the recovery rate of stolen cars, and provides solutions to improve vehicle security by understanding auto theft dynamics in the region."
+abstract: "The surge in auto theft rates across Canada has prompted car owners to become more vigilant regarding their vehicle's security. This paper examines auto theft occurrences within Canada's capital, Ottawa, Ontario. Focusing on the years 2018-2023, the paper considers the types of vehicles, brands, and neighborhoods targeted within Ottawa. Additionally, the study assesses factors such as the recovery rate of stolen cars, and compares the data to other regions of the country."
 format: pdf
 number-sections: true
 toc: true
@@ -14,15 +15,20 @@ bibliography: references.bib
 
 ```{r}
 #| include: false
+#| echo: false
 #| warning: false
 #| message: false
 
 library(tidyverse)
 library(janitor)
 library(kableExtra)
-library(maps)
 library(ggmap)
 library(arrow)
+library(knitr)
+library(tinytex)
+library(readr)
+library(janitor)
+library(dplyr)
 
 auto_Data <- read_parquet(here::here("data/analysis_data/analysis_data.parquet"))
 ```
@@ -30,24 +36,29 @@ auto_Data <- read_parquet(here::here("data/analysis_data/analysis_data.parquet")
 
 # Introduction
 
-In recent years, there is a significant increase of auto theft rates across various cities in Canada. The country’s capital, Ottawa has reported 221 stolen vehicles cases since January 1, 2024 [@citeCTV]. This escalating trend in auto theft poses a considerable risk to public safety. Although Ottawa police have made efforts to mitigate such reports as well as educate the public, the number of reported cases continues to rise steadily, specifically from the years 2018-2023. However, questions regarding potential patterns in the types of cars targeted and the proportion of vehicles successfully recovered following theft have increased.
+There is no doubt that auto theft has become an increasingly popular topic over the last few years. Canada has seen exceeding rates of auto theft, where many thefts are starting to become more frequent and more violent. Between the years 2021-2023, Ontario has seen a 48.2% increase, while Quebec has seen a 57.9% increase [@citeEquite]. Major cities like Toronto reported to have more than 12,000 vehicles stolen in 2023, which is equal to having one car stolen every 40 minutes [@citeCBC]. In addition, a report from Canadian Finance & Leasing Association (CFLA) stated that Toronto saw a 300 per cent increase in vehicle thefts from 2015 to 2022  [@citeNational]. 
 
-[TO BE EDITED]
+The country’s capital, Ottawa has reported 221 stolen vehicles cases since January 1, 2024 [@citeCTV]. This escalating trend in auto theft poses a considerable risk to public safety. Although Ottawa police have made efforts to mitigate such reports as well as educate the public, the number of reported cases continues to rise steadily, specifically from the years 2018-2023. However, questions regarding potential patterns in the types of cars targeted and the proportion of vehicles successfully recovered following theft have increased.  
 
-This paper aims to identify the gravity of auto theft as a pressing concern, particularly in Canada, in the @Introduction. Subsequently, the @Data section focuses on the methodology for data collection and data cleaning. The @Results section delves into a comprehensive analysis of auto theft patterns in Ottawa from the years 2018-2022. Finally, in the @Discussion section, the paper explores potential drivers behind the escalation in auto theft rates, strategies for enhancing vehicle security, and prospective trends in auto theft.
-
+This paper aims to provide a deep analysis of auto theft rates in Ottawa, Canada. Subsequently, the @Data section focuses on the methodology for data collection and data cleaning. The @Results section delves into a comprehensive analysis of auto theft patterns in Ottawa from the years 2018-2022. Finally, in the @Discussion section, the paper explores potential drivers behind the escalation in auto theft rates, strategies for enhancing vehicle security, and prospective trends in auto theft.
 
 
 # Data {#sec-data}
 
-The data was cleaned by using the open source statistical programming language R [@citeR]...[TO UPDATE]
+The data was cleaned by using the open source statistical programming language R [@r], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `here` [@here], `kableExtra` [@kableExtra], `janitor` [@janitor], and `knitr` [@knitr].
+
+## Data Cleaning 
+
+For the data cleaning process, many variables from the original dataset was removed to focus on the necessary variables. From the original dataset, the following variables were selected: vehicle_make, vehicle_model, vehicle_year, vehicle_colour, vehicle_value, occurred_date, reported_date, weekday, recovered, year, neighborhood. For clarity purposes, the variable “year” was renamed to “theft_year” to make it clear that the variable accounted for the year the vehicle was stolen. 
 
 
 # Results
 
+## Average Count of Auto Theft Cases from 2018-2023 in Ottawa 
+
 ```{r}
-#| label: averageTheftYear
-#| fig-cap: "Average Auto Theft Crime Reported in ottawa from 2018-2023"
+#| label: fig-averageTheftYear
+#| fig-cap: "Average Auto Theft Crimes Reported in Ottawa from 2018-2023"
 #| echo: false
 #| warning: false
 #| message: false
@@ -57,14 +68,22 @@ auto_Data |>
   labs(x = "Year", y = "Count") + theme_minimal() +
   geom_histogram(stat = "count")
 
-
-
 ```
+[@fig-averageTheftYear] shows the average number of auto theft cases reported in Ottawa from 2018 to 2023. 2022 stands out with the highest number of cases, reaching a record high of 2,159. Conversely, 2023 saw the lowest number of cases, totaling 693. In 2018, 914 cases were reported, followed by 1012 in 2019. The number of reported auto theft cases decreased to 891 in 2020, but then surged to 1157 in 2021.
+
+## Top Brands Stolen from 2018-2023
+
+[@fig-theftBrands] presents six graphical representations showcasing the top 10 brands with the highest number of auto theft cases spanning the years 2018 to 2023. Across these six graphs, Toyota consistently emerges with the highest average of stolen cars, except for 2022, where Honda takes the lead in the number of cars stolen. A notable trend observed is the declining numbers for Ford, with a steady decrease in stolen cars over the years. Throughout all six graphs, the most frequently occurring brands include Toyota, Honda, Chevrolet, Dodge, Ford, Hyundai, and Nissan.
+
+[FIGURE 2.5] illustrates a scatter plot depicting the model year of stolen cars in Ottawa. The graph reveals that cars manufactured between 2000 and 2024 are predominantly targeted. Particularly, cars from the year 2021 are the most commonly stolen.
+
+
+
 ```{r}
-#| label: theft-brands
-#| fig-cap: "Number of Cars Stolen by Car Brand in 2018"
-#| fig-subcap: ["Illnesses","Visits to the doctor"]
-#| layout-ncol: 3
+#| label: fig-theftBrands
+#| fig-cap: "Top 10 Car Brands Stolen from 2018-2023"
+#| fig-subcap: ["Top 10 Brands Affected in 2018", "Top 10 Brands Affected in 2019", "Top 10 Brands Affected in 2020", "Top 10 Brands Affected in 2021", "Top 10 Brands Affected in 2022", "Top 10 Brands Affected in 2023"]
+#| layout-ncol: 2
 #| echo: false
 #| warning: false
 #| message: false
@@ -95,7 +114,7 @@ brands2018_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2018") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 # Filter for Number of Cars Stolen by Brand in 2019 
@@ -122,7 +141,7 @@ brandtheft2019_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2019") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 
@@ -142,7 +161,7 @@ brandtheft2020_top10 <- brand_theft_2020 |>
                                                         "HOND" = "Honda",
                                                         "HYUN" = "Hyundai",
                                                         "LEXS" = "Lexus",
-                                                        "MERZ" = "Mercedes-Benz ",
+                                                        "MERZ" = "Mercedes",
                                                         "MAZD" = "Mazda",
                                                         "NISS" = "Nissan",
                                                         "TOYT" = "Toyota"
@@ -151,7 +170,7 @@ brandtheft2020_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2020") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 
@@ -180,7 +199,7 @@ brandtheft2021_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2021") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 # Filter for Number of Cars Stolen by Brand in 2022
@@ -208,7 +227,7 @@ brandtheft2022_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022") 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 # Filter for Number of Cars Stolen by Brand in 2023 
 brand_theft_2023 <- auto_Data |>
@@ -236,73 +255,25 @@ brandtheft2023_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2023") 
-
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
 
 
 ```
 
 ```{r}
-#| label: theft-recovery
-#| fig-cap: "Recovery Rates from 2018 - 2023"
+#| label: fig-vehicleYearStolen
+#| fig-cap: "Vehicle Years Stolen from 2018-2023"
 #| echo: false
 #| warning: false
 #| message: false
 
-library(ggplot2)
-
-theft_recovery <- auto_Data |>
-  select(theft_year, recovered) 
-
-theft_count <- auto_Data |>
-  select(theft_year) 
-
-theft_count |>
-  ggplot(mapping = aes(x = theft_year)) +
-  geom_bar() +
-  labs(x = "Age group", y = "Number of observations") +
-  theme(legend.position = "bottom")
-
-
-theft_recovery |>
-  ggplot(mapping = aes(x = theft_year, fill = recovered)) +
-  geom_bar(position = "dodge2") +
-  labs(x = "Age group", y = "Number of observations", fill = "Vote") +
-  theme(legend.position = "bottom")
-
-
-```
-
-
-
-
-```{r}
-#| label: theft-neighborhoods
-#| fig-cap: "Recovery Rates from 2018 - 2023"
-#| echo: false
-#| warning: false
-#| message: false
-
-theft_recovery <- auto_Data |>
-  select(neighbourhood) |> 
-  count(neighbourhood) |> 
-  filter(n > 180)
-
+# Count for vehicle year 
 years_vehicle <- auto_Data |>
   select(vehicle_year) |> 
   count(vehicle_year) 
 
 
-
-theft_recovery |>
-  ggplot(aes(x = neighbourhood, y = n, fill = n)) +  # Use n as the fill aesthetic
-  geom_bar(stat = "identity") +
-  theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022")
-
-library(ggplot2)
-
-# Assuming 'years_vehicle' is your data frame
+# Code from Chat GPT (see LLM)
 
 years_vehicle <- years_vehicle |>
   mutate(vehicle_year = as.numeric(vehicle_year))  # Convert to numeric if 'vehicle_year' is factor
@@ -313,10 +284,112 @@ ggplot(years_vehicle, aes(x = vehicle_year, y = n, fill = n)) +
   scale_x_continuous(limits = c(1930, 2024)) +  # Adjust the x-axis limits here
   theme_minimal() + 
   theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count", title = "Top 10 Brands with Most Auto Thefts in 2022")
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count")
+
 
 ```
 
+
+## Recovery Rate
+
+@fig-theftrecovery illustrates the number of cars recovered and unrecovered from 2018 to 2023. Overall, it is evident that more cars are recovered, except for 2023, where more cars were left unrecovered compared to those recovered. From 2018 to 2021, the number of cars recovered consistently surpassed those left unrecovered. Specifically, in 2018, 570 cars were recovered out of 914 (as shown in Figure 1), reflecting a 62% recovery rate. Similarly, in 2019, with a total of 1,012 cars stolen (as shown in Figure 1), 646 were recovered (as shown in Figure 3), maintaining a recovery rate of 63%.
+
+In 2020, 529 out of 891 stolen cars were recovered, resulting in a 59% recovery rate. The following year, 2021, witnessed a slightly lower recovery rate of 53%, with 623 cars recovered out of 1,157 stolen. Notably, 2022 marked the highest number of both recovered and unrecovered cars, totaling 1,080 and 1,079 respectively. As per [FIGURE 1], a total of 2,159 cars were stolen in Ottawa in 2022. [FIGURE 3] indicates that 1,080 out of 2,159 were recovered, equating to a 50% recovery rate for 2022.
+
+However, 2023 stands out as the only year where the number of cars recovered is fewer than those left unrecovered. In that year, a total of 693 cars were stolen (as shown in Figure 1), and only 334 cars were recovered (as shown in Figure 3), resulting in a recovery rate of 48%. [FIGURE 3] illustrates that between 2018 and 2023, the recovery rate averages roughly between 60% and 50%.
+
+
+```{r}
+#| label: fig-theftrecovery
+#| fig-cap: "Recovery Rates from 2018-2023"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Filter for Count of Cars Recovered from 2018-2023
+theft_recovery <- auto_Data |>
+  select(theft_year, recovered) 
+
+# Create a Stacked Bar Graph of the Data
+theft_recovery |>
+  ggplot(mapping = aes(x = theft_year, fill = recovered)) +
+  geom_bar(position = "dodge2") + 
+  labs(x = "Age group", y = "Number of observations", fill = "Vote") +
+  theme(legend.position = "bottom")
+
+```
+
+
+## Top Neighborhoods 
+
+@tbl-theftneighborhoods2018 displays the top 5 neighborhoods with the highest rates of auto theft in Ottawa in 2018. Among these, Overbrook – McArthur recorded the highest number of cases, totaling 46. @tbl-theftneighborhoods2023 presents the top 5 neighborhoods with the highest rates of auto theft in 2023, with Portobello South leading with 33 reported cases. Notably, Overbrook – McArthur maintains its position in the top 5, reporting 21 cases of auto theft. @tbl-theftneighborhoods showcases the top 5 neighborhoods with the highest rates of auto theft cumulatively from 2018 to 2023. In this comprehensive view, Centretown emerges with the highest number of auto theft cases, totaling 298. Overbrook – McArthur follows closely with 285 cases, while Portobello South and Stittsville tie with 218 cases each, and East Industrial reports a total of 182 cases. 
+
+
+```{r}
+#| label: tbl-theftneighborhoods2018
+#| tbl-cap: "Table of Top 5 Neighborhoods with Most Auto Thefts in 2018"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Filter for top 10 neighborhoods with the highest auto theft rates from 2018
+theft_neighbourhood2018 <- auto_Data |>
+  filter(theft_year == "2018") |>
+  select(neighbourhood) |> 
+  count(neighbourhood) |> 
+  filter(n > 20)
+
+theft_neighbourhood2018 |>
+  kable(
+    col.names = c("Neighborhood", "Total Number of Cases") , 
+    align = c("c", "c")
+  )
+
+```
+
+```{r}
+#| label: tbl-theftneighborhoods2023
+#| tbl-cap: "Table of Top 5 Neighborhoods with Most Auto Thefts in 2023"
+#| echo: false
+#| warning: false
+#| message: false
+
+
+# Filter for top 10 neighborhoods with the highest auto theft rates from 2023
+theft_neighbourhood2023 <- auto_Data |>
+  filter(theft_year == "2023") |>
+  select(neighbourhood) |> 
+  count(neighbourhood) |> 
+  filter(n > 20)
+
+
+theft_neighbourhood2023 |>
+  kable(
+    col.names = c("Neighborhood", "Total Number of Cases") , 
+    align = c("c", "c")
+  )
+
+```
+
+```{r}
+#| label: tbl-theftneighborhoods
+#| tbl-cap: "Table of Top 5 Neighborhoods with Most Auto Thefts from 2018-2023"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Filter for top 10 neighborhoods with the highest auto theft rates from 2018-2023
+theft_neighbourhood <- auto_Data |>
+  select(neighbourhood) |> 
+  count(neighbourhood) |> 
+  filter(n > 180)
+
+theft_neighbourhood |>
+  kable(
+    col.names = c("Neighborhood", "Total Number of Cases") , 
+    align = c("c", "c")
+  )
+```
 
 
 
