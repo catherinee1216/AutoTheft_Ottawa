@@ -57,8 +57,13 @@ For the data cleaning process, many variables from the original dataset was remo
 ## Average Count of Auto Theft Cases from 2018-2023 in Ottawa 
 
 ```{r}
+<<<<<<< HEAD
 #| label: fig-averageTheftYear
 #| fig-cap: "Average Auto Theft Crimes Reported in Ottawa from 2018-2023"
+=======
+#| label: averageTheftYear
+#| fig-cap: "Average Auto Theft Crimes Reported in ottawa from 2018-2023"
+>>>>>>> beb982253134e8a9076c4422532e0f3b193e5832
 #| echo: false
 #| warning: false
 #| message: false
@@ -80,7 +85,11 @@ auto_Data |>
 
 
 ```{r}
+<<<<<<< HEAD
 #| label: fig-theftBrands
+=======
+#| label: theftBrands
+>>>>>>> beb982253134e8a9076c4422532e0f3b193e5832
 #| fig-cap: "Top 10 Car Brands Stolen from 2018-2023"
 #| fig-subcap: ["Top 10 Brands Affected in 2018", "Top 10 Brands Affected in 2019", "Top 10 Brands Affected in 2020", "Top 10 Brands Affected in 2021", "Top 10 Brands Affected in 2022", "Top 10 Brands Affected in 2023"]
 #| layout-ncol: 2
@@ -256,17 +265,73 @@ brandtheft2023_top10 |>
   geom_bar(stat = "identity") +
   theme_minimal() + theme(legend.position = "bottom") + 
   labs(x = "Vehicle Brand", y = "Count", fill = "Count") 
+<<<<<<< HEAD
+
+=======
+>>>>>>> beb982253134e8a9076c4422532e0f3b193e5832
+
+```
+
+```{r}
+<<<<<<< HEAD
+#| label: fig-vehicleYearStolen
+#| fig-cap: "Vehicle Years Stolen from 2018-2023"
+=======
+#| label: theft-recovery
+#| fig-cap: "Recovery Rates from 2018-2023"
+>>>>>>> beb982253134e8a9076c4422532e0f3b193e5832
+#| echo: false
+#| warning: false
+#| message: false
+
+<<<<<<< HEAD
+=======
+# Filter for Count of Cars Recovered from 2018-2023
+theft_recovery <- auto_Data |>
+  select(theft_year, recovered) 
+
+# Create a Stacked Bar Graph of the Data
+theft_recovery |>
+  ggplot(mapping = aes(x = theft_year, fill = recovered)) +
+  geom_bar(position = "dodge2") +
+  labs(x = "Age group", y = "Number of observations", fill = "Vote") +
+  theme(legend.position = "bottom")
+
+```
+
+
+
+
+```{r}
+#| label: theft-neighborhoods
+#| fig-cap: "Top 5 Neighborhoods with Most Auto Thefts from 2018-2023"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Filter for top 10 neighborhoods with the highest auto theft rates from 2018-2023
+theft_recovery <- auto_Data |>
+  select(neighbourhood) |> 
+  count(neighbourhood) |> 
+  filter(n > 180)
+
+theft_recovery |>
+  ggplot(aes(x = neighbourhood, y = n, fill = n)) +  # Use n as the fill aesthetic
+  geom_bar(stat = "identity") +
+  theme_minimal() + theme(legend.position = "bottom") + 
+  labs(x = "Vehicle Brand", y = "Count", fill = "Count")
 
 
 ```
 
 ```{r}
-#| label: fig-vehicleYearStolen
+#| label: vehicleYearStolen
 #| fig-cap: "Vehicle Years Stolen from 2018-2023"
 #| echo: false
 #| warning: false
 #| message: false
 
+>>>>>>> beb982253134e8a9076c4422532e0f3b193e5832
 # Count for vehicle year 
 years_vehicle <- auto_Data |>
   select(vehicle_year) |> 
@@ -285,7 +350,10 @@ ggplot(years_vehicle, aes(x = vehicle_year, y = n, fill = n)) +
   theme_minimal() + 
   theme(legend.position = "bottom") + 
   labs(x = "Vehicle Brand", y = "Count", fill = "Count")
+<<<<<<< HEAD
 
+=======
+>>>>>>> beb982253134e8a9076c4422532e0f3b193e5832
 
 ```
 
@@ -390,6 +458,7 @@ theft_neighbourhood |>
     align = c("c", "c")
   )
 ```
+
 
 
 
