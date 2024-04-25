@@ -1,6 +1,6 @@
 ---
 title: "Wheels of Misfortune: Exploring Auto Theft Trends in Ottawa"
-subtitle: "An Analysis on top car brands stolen, recovery rate, and top neighborhoods with high theft rates"
+subtitle: "An Analysis on Top Car Brands Stolen, Recovery Rate, and Top Neighborhoods with High Theft Rates"
 author: 
   - Catherine Punnoose
 thanks: "Code and data are available at: https://github.com/catherinee1216/AutoTheft_Ottawa.git."
@@ -22,37 +22,37 @@ bibliography: references.bib
 library(tidyverse)
 library(janitor)
 library(kableExtra)
-library(ggmap)
 library(arrow)
 library(knitr)
 library(tinytex)
 library(readr)
 library(janitor)
 library(dplyr)
+library(ggplot2)
 
 auto_Data <- read_parquet(here::here("data/analysis_data/analysis_data.parquet"))
 ```
 
 
-# Introduction
+# Introduction {#sec-intro}
 
 There is no doubt that auto theft has become an increasingly popular topic over the last few years. Canada has seen exceeding rates of auto theft, where many thefts are starting to become more frequent and more violent. Between the years 2021-2023, Ontario has seen a 48.2% increase, while Quebec has seen a 57.9% increase [@citeEquite]. Major cities like Toronto reported to have more than 12,000 vehicles stolen in 2023, which is equal to having one car stolen every 40 minutes [@citeCBC]. In addition, a report from Canadian Finance & Leasing Association (CFLA) stated that Toronto saw a 300 per cent increase in vehicle thefts from 2015 to 2022  [@citeNational]. 
 
 The country’s capital, Ottawa has reported 221 stolen vehicles cases since January 1, 2024 [@citeCTV]. This escalating trend in auto theft poses a considerable risk to public safety. Although Ottawa police have made efforts to mitigate such reports as well as educate the public, the number of reported cases continues to rise steadily, specifically from the years 2018-2023. However, questions regarding potential patterns in the types of cars targeted and the proportion of vehicles successfully recovered following theft have increased.  
 
-This paper aims to provide a deep analysis of auto theft rates in Ottawa, Canada. The estimand for this paper is to quantify the impact of various factors on the occurrence and frequency of auto thefts in Ottawa, ultimately aiming to understand the dynamics driving the escalating trend in auto theft rates within the city. Subsequently, the @Data section focuses on the methodology for data collection and data cleaning. The @Results section delves into a comprehensive analysis of auto theft patterns in Ottawa from the years 2018-2022. Finally, in the @Discussion section, the paper explores potential drivers behind the escalation in auto theft rates and comparing the data to trends across Ontario.
+This paper aims to provide a deep analysis of auto theft rates in Ottawa, Canada. The estimand for this paper is to quantify the impact of various factors on the occurrence and frequency of auto thefts in Ottawa, ultimately aiming to understand the dynamics driving the escalating trend in auto theft rates within the city. Subsequently, the @sec-data section focuses on the methodology for data collection and data cleaning. The @sec-Results section delves into a comprehensive analysis of auto theft patterns in Ottawa from the years 2018-2022. Finally, in the @sec-Discussion section, the paper explores potential drivers behind the escalation in auto theft rates and comparing the data to trends across Ontario.
 
 
 # Data {#sec-data}
 
-The data was cleaned by using the open source statistical programming language R [@r], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `here` [@here], `kableExtra` [@kableExtra], `janitor` [@janitor], and `knitr` [@knitr].
+The dataset used for this paper was provided by Ottawa Police [@citeOttawa]. The dataset contains theft of motor vehicle occurrencesfrom the years 2018-2023.The data was cleaned by using the open source statistical programming language R [@citeR], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `kableExtra` [@kableExtra], `janitor` [@janitor], arrow [@arrow] ,and `knitr` [@knitr].
 
 ## Data Cleaning 
 
 For the data cleaning process, many variables from the original dataset was removed to focus on the necessary variables. From the original dataset, the following variables were selected: vehicle_make, vehicle_model, vehicle_year, vehicle_colour, vehicle_value, occurred_date, reported_date, weekday, recovered, year, neighborhood. For clarity purposes, the variable “year” was renamed to “theft_year” to make it clear that the variable accounted for the year the vehicle was stolen. 
 
 
-# Results
+# Results {#sec-Results}
 
 ## Average Count of Auto Theft Cases from 2018-2023 in Ottawa 
 
@@ -259,50 +259,12 @@ brandtheft2023_top10 |>
 
 ```
 
-```{r}
-#| label: fig-theft-recovery
-#| fig-cap: "Recovery Rates from 2018-2023"
-#| echo: false
-#| warning: false
-#| message: false
-
-# Filter for Count of Cars Recovered from 2018-2023
-theft_recovery <- auto_Data |>
-  select(theft_year, recovered) 
-
-# Create a Stacked Bar Graph of the Data
-theft_recovery |>
-  ggplot(mapping = aes(x = theft_year, fill = recovered)) +
-  geom_bar(position = "dodge2") +
-  labs(x = "Age group", y = "Number of observations", fill = "Vote") +
-  theme(legend.position = "bottom")
-
-```
 
 
 
 
-```{r}
-#| label: fig-theft-neighborhoods
-#| fig-cap: "Top 5 Neighborhoods with Most Auto Thefts from 2018-2023"
-#| echo: false
-#| warning: false
-#| message: false
-
-# Filter for top 10 neighborhoods with the highest auto theft rates from 2018-2023
-theft_recovery <- auto_Data |>
-  select(neighbourhood) |> 
-  count(neighbourhood) |> 
-  filter(n > 180)
-
-theft_recovery |>
-  ggplot(aes(x = neighbourhood, y = n, fill = n)) +  # Use n as the fill aesthetic
-  geom_bar(stat = "identity") +
-  theme_minimal() + theme(legend.position = "bottom") + 
-  labs(x = "Vehicle Brand", y = "Count", fill = "Count")
 
 
-```
 
 ```{r}
 #| label: fig-vehicleYearStolen
@@ -336,11 +298,11 @@ ggplot(years_vehicle, aes(x = vehicle_year, y = n, fill = n)) +
 
 ## Recovery Rate
 
-@fig-theftrecovery illustrates the number of cars recovered and unrecovered from 2018 to 2023. Overall, it is evident that more cars are recovered, except for 2023, where more cars were left unrecovered compared to those recovered. From 2018 to 2021, the number of cars recovered consistently surpassed those left unrecovered. Specifically, in 2018, 570 cars were recovered out of 914 (as shown in Figure 1), reflecting a 62% recovery rate. Similarly, in 2019, with a total of 1,012 cars stolen (as shown in Figure 1), 646 were recovered (as shown in Figure 3), maintaining a recovery rate of 63%.
+@fig-theftrecovery illustrates the number of cars recovered and unrecovered from 2018 to 2023. Overall, it is evident that more cars are recovered, except for 2023, where more cars were left unrecovered compared to those recovered. From 2018 to 2021, the number of cars recovered consistently surpassed those left unrecovered. Specifically, in 2018, 570 cars were recovered out of 914 (@fig-averageTheftYear), reflecting a 62% recovery rate. Similarly, in 2019, with a total of 1,012 cars stolen (@fig-averageTheftYear), 646 were recovered (@fig-theftrecovery), maintaining a recovery rate of 63%.
 
-In 2020, 529 out of 891 stolen cars were recovered, resulting in a 59% recovery rate. The following year, 2021, witnessed a slightly lower recovery rate of 53%, with 623 cars recovered out of 1,157 stolen. Notably, 2022 marked the highest number of both recovered and unrecovered cars, totaling 1,080 and 1,079 respectively. As per [FIGURE 1], a total of 2,159 cars were stolen in Ottawa in 2022. [FIGURE 3] indicates that 1,080 out of 2,159 were recovered, equating to a 50% recovery rate for 2022.
+In 2020, 529 out of 891 stolen cars were recovered, resulting in a 59% recovery rate. The following year, 2021, witnessed a slightly lower recovery rate of 53%, with 623 cars recovered out of 1,157 stolen. Notably, 2022 marked the highest number of both recovered and unrecovered cars, totaling 1,080 and 1,079 respectively. As per @fig-averageTheftYear, a total of 2,159 cars were stolen in Ottawa in 2022. @fig-theftrecovery indicates that 1,080 out of 2,159 were recovered, equating to a 50% recovery rate for 2022.
 
-However, 2023 stands out as the only year where the number of cars recovered is fewer than those left unrecovered. In that year, a total of 693 cars were stolen (as shown in Figure 1), and only 334 cars were recovered (as shown in Figure 3), resulting in a recovery rate of 48%. [FIGURE 3] illustrates that between 2018 and 2023, the recovery rate averages roughly between 60% and 50%.
+However, 2023 stands out as the only year where the number of cars recovered is fewer than those left unrecoverable. A total of 693 cars were stolen (as shown in @fig-averageTheftYear), and only 334 cars were recovered (as shown in @fig-theftrecovery), resulting in a recovery rate of 48%. @fig-theftrecovery illustrates that between 2018 and 2023, the recovery rate averages roughly between 60% and 50%.
 
 
 ```{r}
@@ -365,9 +327,6 @@ theft_recovery |>
 
 
 ## Top Neighborhoods 
-
-@tbl-theftneighborhoods2018 displays the top 5 neighborhoods with the highest rates of auto theft in Ottawa in 2018. Among these, Overbrook – McArthur recorded the highest number of cases, totaling 46. @tbl-theftneighborhoods2023 presents the top 5 neighborhoods with the highest rates of auto theft in 2023, with Portobello South leading with 33 reported cases. Notably, Overbrook – McArthur maintains its position in the top 5, reporting 21 cases of auto theft. @tbl-theftneighborhoods showcases the top 5 neighborhoods with the highest rates of auto theft cumulatively from 2018 to 2023. In this comprehensive view, Centretown emerges with the highest number of auto theft cases, totaling 298. Overbrook – McArthur follows closely with 285 cases, while Portobello South and Stittsville tie with 218 cases each, and East Industrial reports a total of 182 cases. 
-
 
 ```{r}
 #| label: tbl-theftneighborhoods2018
@@ -435,10 +394,10 @@ theft_neighbourhood |>
   )
 ```
 
+@tbl-theftneighborhoods2018 displays the top 5 neighborhoods with the highest rates of auto theft in Ottawa in 2018. Among these, Overbrook – McArthur recorded the highest number of cases, totaling 46. @tbl-theftneighborhoods2023 presents the top 5 neighborhoods with the highest rates of auto theft in 2023, with Portobello South leading with 33 reported cases. Notably, Overbrook – McArthur maintains its position in the top 5, reporting 21 cases of auto theft. @tbl-theftneighborhoods showcases the top 5 neighborhoods with the highest rates of auto theft cumulatively from 2018 to 2023. In this comprehensive view, Centretown emerges with the highest number of auto theft cases, totaling 298. Overbrook – McArthur follows closely with 285 cases, while Portobello South and Stittsville tie with 218 cases each, and East Industrial reports a total of 182 cases. 
 
 
-
-# Discussion 
+# Discussion {#sec-Discussion}
 
 ## Possible Reasons for Increasing Auto Theft Rates
 
@@ -447,7 +406,7 @@ It is evident that auto theft reports are increasing. However, why are cases inc
 
 ## Comparison to Ontario 
 
-Although this paper focuses specifically on auto theft rates in Ottawa, how different are the trends compared to Ontario? According to a report by Equite, the majority of vehicle thefts in Ontario were vehicles made in 2017 or newer [@citeEquite]. This can be seen in [FIGURE] where newer vehicles made in 2017 or newer had a higher rate of theft in Ottawa. 
+Although this paper focuses specifically on auto theft rates in Ottawa, how different are the trends compared to Ontario? According to a report by Equite, the majority of vehicle thefts in Ontario were vehicles made in 2017 or newer [@citeEquite]. This can be seen in @fig-vehicleYearStolen where newer vehicles made in 2017 or newer had a higher rate of theft in Ottawa. 
 
 
 ## Weaknesses and Next Steps
@@ -456,20 +415,7 @@ Some limitations of this paper include the reliability of the dataset. While the
 
 # Conclusion  
 
-In conclusion, the surge in auto theft incidents, both in Ottawa and across Canada, underscores a pressing issue that demands attention. The escalation in theft rates poses a significant threat to public safety, prompting concerns about the effectiveness of current preventative measures and law enforcement efforts. The analysis conducted in this paper sheds light on the auto theft landscape specifically in Ottawa, offering valuable insights into the trends and patterns observed between 2018 and 2023. By examining variables such as the types of vehicles targeted, the recovery rates, and the geographical distribution of thefts across different neighborhoods, this research provides a comprehensive understanding of the dynamics driving the escalating trend in auto theft. Moving forward, addressing the root causes behind the surge in auto theft requires a multifaceted approach that combines effective law enforcement strategies, community engagement initiatives, and technological solutions to deter criminals and protect vulnerable vehicles. By leveraging the findings of this study and collaborating with stakeholders, policymakers, and law enforcement agencies can develop targeted interventions to curb the rising tide of auto theft and safeguard the well-being of Ottawa residents.
-
-
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional data details
-
-
+In conclusion, the surge in auto theft incidents, both in Ottawa and across Canada, is a pressing issue that demands attention. The escalation in theft rates poses a significant threat to public safety, prompting concerns about the effectiveness of current preventative measures and law enforcement efforts. The analysis conducted in this paper sheds light on the auto theft landscape specifically in Ottawa, offering insights into the trends and patterns observed between 2018 and 2023. By examining variables such as the types of vehicles targeted, the recovery rates, and the geographical distribution of thefts across different neighborhoods, this research provides a comprehensive understanding of the dynamics driving the escalating trend in auto theft. Moving forward, addressing the root causes behind the surge in auto theft requires a multifaceted approach that combines effective law enforcement strategies, community engagement initiatives, and technological solutions to deter criminals and protect vulnerable vehicles. By leveraging the findings of this study and collaborating with stakeholders, policymakers, and law enforcement agencies can develop targeted interventions to curb the rising tide of auto theft and safeguard the well-being of Ottawa residents.
 
 \newpage
 
