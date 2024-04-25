@@ -1,11 +1,9 @@
 #### Preamble ####
 # Purpose: Cleans the raw auto theft data collected by Ottawa Police
 # Author: Catherine Punnoose
-# Date: 28 March 2024
-# Contact: catherine.punnoose@gmail.com
+# Date: 24 April 2024
+# Contact: catherine.punnoose@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
 
 #### Workspace setup ####
 library(dplyr)
@@ -20,9 +18,7 @@ raw_data <- read.csv("data/raw_data/Auto_Theft_Ottawa_Data.csv")
 cleaned_data <-
   raw_data |>
   janitor::clean_names() |>
-  select(vehicle_make, vehicle_model, vehicle_year, vehicle_colour, 
-         vehicle_value, occurred_date, reported_date, weekday, 
-         recovered, year, neighbourhood) |>
+  select(vehicle_make, vehicle_model, vehicle_year, recovered, year, neighbourhood) |>
   mutate(theft_year = year) # changing year to theft_year for clarity
 
 

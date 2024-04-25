@@ -12,14 +12,10 @@ library(tidyverse)
 
 #### Download data ####
 
-# code from CHAT GPT
-# Set the file path to your CSV file
+# Go to https://data.ottawapolice.ca/datasets/e5453a203e2a4baeac32ac4e70ce852c_0/about
 
-# Read the CSV file
-auto_theft_data <- read.csv("data/analysis_data/Auto_Theft_Ottawa_Data.csv")
+# Click "Download" 
 
-#### Save data ####
-# saving original dataset in raw_data
-write.csv(auto_theft_data, "data/raw_data/Auto_Theft_Ottawa_Data.csv") 
+# Click "Download CSV"
 
-         
+# Manually add CSV to R Project

@@ -53,7 +53,7 @@ The dataset provided by Ottawa Police contains all theft of motor vehicle occurr
 
 ## Data Cleaning 
 
-For the data cleaning process, many variables from the original dataset was removed to focus on the necessary variables. From the original dataset, the following variables were selected: vehicle_make, vehicle_model, vehicle_year, vehicle_colour, vehicle_value, occurred_date, reported_date, weekday, recovered, year, neighborhood. For clarity purposes, the variable “year” was renamed to “theft_year” to make it clear that the variable accounted for the year the vehicle was stolen. 
+For the data cleaning process, many variables from the original dataset was removed to focus on the necessary variables. From the original dataset, the following variables were selected: vehicle_make, vehicle_model, vehicle_year, recovered, year, neighborhood. For clarity purposes, the variable “year” was renamed to “theft_year” to make it clear that the variable accounted for the year the vehicle was stolen. 
 
 
 # Results {#sec-Results}
