@@ -2,8 +2,7 @@
 
 ## Overview
 
-Auto theft rates have been increasing in the province, Ontario. This repo provides an analysis of auto theft trends in Ottawa, Ontario, Canada from the years 2018-2022. Specifically, the repo will analyze common car brands stolen, common vehicle makes stolen, and neighborhoods in Ottawa with high auto theft rates. 
-
+Auto theft rates have been increasing in the province, Ontario. This repo provides an analysis of auto theft trends in Ottawa, Ontario, Canada from the years 2018-2022. Specifically, the repo will analyze common car brands stolen, common vehicle makes stolen, and neighborhoods in Ottawa with high auto theft rates.
 
 ## File Structure
 
