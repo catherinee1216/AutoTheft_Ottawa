@@ -114,6 +114,7 @@ brands2018_top10 <- brand_theft_2018_table |>
                              "NISS" = "Nissan",
                              "TOYT" = "Toyota"
                              ))
+# Create a Bar Graph
 brands2018_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
@@ -141,6 +142,7 @@ brandtheft2019_top10 <- brand_theft_2019 |>
                                                         "NISS" = "Nissan",
                                                         "TOYT" = "Toyota"
                                                      ))
+# Create a Bar Graph
 brandtheft2019_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
@@ -170,6 +172,7 @@ brandtheft2020_top10 <- brand_theft_2020 |>
                                                         "NISS" = "Nissan",
                                                         "TOYT" = "Toyota"
                                                      ))
+# Create a Bar Graph
 brandtheft2020_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
@@ -199,6 +202,7 @@ brandtheft2021_top10 <- brand_theft_2021 |>
                                                         "NISS" = "Nissan",
                                                         "TOYT" = "Toyota"
                                                      ))
+# Create a Bar Graph
 brandtheft2021_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
@@ -227,6 +231,7 @@ brandtheft2022_top10 <- brand_theft_2022 |>
                                                         "NISS" = "Nissan",
                                                         "TOYT" = "Toyota"
                                                      ))
+# Create a Bar Graph
 brandtheft2022_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
@@ -237,7 +242,7 @@ brandtheft2022_top10 |>
 brand_theft_2023 <- auto_Data |>
   filter(theft_year == "2023") 
 
-# filter for Top 10 Brands 
+# Filter for Top 10 Brands 
 brandtheft2023_top10 <- brand_theft_2023 |>
                           count(vehicle_make) |>
                           filter(n > 16, n != 36) |> 
@@ -255,6 +260,7 @@ brandtheft2023_top10 <- brand_theft_2023 |>
                                                         "NISS" = "Nissan",
                                                         "TOYT" = "Toyota"
                                                      ))
+# Create a Bar Graph
 brandtheft2023_top10 |>
   ggplot(aes(x = vehicle_make, y = n, fill = n)) +  # Use n as the fill aesthetic
   geom_bar(stat = "identity") +
@@ -320,7 +326,7 @@ However, 2023 stands out as the only year where the number of cars recovered is 
 theft_recovery <- auto_Data |>
   select(theft_year, recovered) 
 
-# Create a Stacked Bar Graph of the Data
+# Create Stacked Bar Graph
 theft_recovery |>
   ggplot(mapping = aes(x = theft_year, fill = recovered)) +
   geom_bar(position = "dodge2") + 
