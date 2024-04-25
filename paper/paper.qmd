@@ -42,10 +42,14 @@ The country’s capital, Ottawa has reported 221 stolen vehicles cases since Jan
 
 This paper aims to provide a deep analysis of auto theft rates in Ottawa, Canada. The estimand for this paper is to quantify the impact of various factors on the occurrence and frequency of auto thefts in Ottawa, ultimately aiming to understand the dynamics driving the escalating trend in auto theft rates within the city. Subsequently, the @sec-data section focuses on the methodology for data collection and data cleaning. The @sec-Results section delves into a comprehensive analysis of auto theft patterns in Ottawa from the years 2018-2022. Finally, in the @sec-Discussion section, the paper explores potential drivers behind the escalation in auto theft rates and comparing the data to trends across Ontario.
 
+The paper uses the data provided by Ottawa Police [@citeOttawa]. The dataset defines auto theft as the act of taking or another person's vehicle [@citeOttawa].The data was cleaned by using the open source statistical programming language R [@citeR], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `kableExtra` [@kableExtra], `janitor` [@janitor], arrow [@arrow] ,and `knitr` [@knitr].
+
+
 
 # Data {#sec-data}
 
-The dataset used for this paper was provided by Ottawa Police [@citeOttawa]. The dataset contains theft of motor vehicle occurrencesfrom the years 2018-2023.The data was cleaned by using the open source statistical programming language R [@citeR], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `kableExtra` [@kableExtra], `janitor` [@janitor], arrow [@arrow] ,and `knitr` [@knitr].
+The dataset provided by Ottawa Police contains all theft of motor vehicle occurrences from the years 2018-2023. The data is updated annually, and is available for public use. 
+
 
 ## Data Cleaning 
 
